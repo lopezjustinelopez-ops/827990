@@ -8,7 +8,6 @@
   @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap');
 
   :root {
-    --bg: #f0f7ff;
     --card: #ffffff;
     --primary: #4c97ff;
     --accent: #ffab19;
@@ -24,10 +23,11 @@
     background: linear-gradient(135deg, #e0f2fe 0%, #fef9c3 50%, #fce7f3 100%);
     color: var(--text);
     padding: 20px;
+    min-height: 100vh;
   }
 
   .container {
-    max-width: 980px;
+    max-width: 820px;
     margin: 0 auto;
   }
 
@@ -35,89 +35,91 @@
   .header {
     background: linear-gradient(135deg, #4c97ff, #855cd6);
     color: white;
-    padding: 24px 30px;
+    padding: 20px 26px;
     border-radius: 24px;
     box-shadow: 0 10px 25px rgba(76, 151, 255, 0.25);
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .header h1 {
     font-family: 'Fredoka', sans-serif;
-    font-size: 2.2rem;
-    margin: 0 0 8px 0;
-    letter-spacing: 0.5px;
+    font-size: 2rem;
+    margin: 0 0 6px 0;
   }
 
   .header p {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     margin: 0;
     opacity: 0.95;
   }
 
-  /* Progress Bar */
-  .progress-box {
-    background: white;
-    padding: 16px 24px;
-    border-radius: 18px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.06);
-    margin-bottom: 24px;
+  /* Stepper Dots */
+  .stepper {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
   }
 
-  .progress-label {
+  .step-pill {
+    background: white;
+    color: #64748b;
+    padding: 8px 16px;
+    border-radius: 999px;
     font-family: 'Fredoka', sans-serif;
-    font-size: 1.2rem;
-    color: #4c97ff;
-    min-width: 170px;
+    font-size: 0.95rem;
+    border: 3px solid #e2e8f0;
+    transition: all 0.25s;
   }
 
-  .progress-track {
-    flex: 1;
-    height: 22px;
-    background: #e2e8f0;
-    border-radius: 999px;
-    overflow: hidden;
-    min-width: 200px;
+  .step-pill.active {
+    background: #4c97ff;
+    color: white;
+    border-color: #2563eb;
+    transform: scale(1.05);
   }
 
-  .progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #0fbd8c, #4c97ff);
-    border-radius: 999px;
-    transition: width 0.35s ease;
+  .step-pill.completed {
+    background: #0fbd8c;
+    color: white;
+    border-color: #059669;
   }
 
-  /* Grid Layout */
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+  /* Screen Panels */
+  .screen {
+    display: none;
+    animation: fadeIn 0.3s ease;
   }
 
-  @media (max-width: 820px) {
-    .grid { grid-template-columns: 1fr; }
+  .screen.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   /* Cards */
   .card {
     background: var(--card);
     border-radius: 24px;
-    padding: 24px;
+    padding: 26px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.07);
     border: 4px solid #fff;
   }
 
+  .card.intro { border-color: #c4b5fd; text-align: center; }
   .card.player { border-color: #93c5fd; }
   .card.star { border-color: #fcd34d; }
+  .card.finish { border-color: #6ee7b7; text-align: center; }
 
   .card-title {
     font-family: 'Fredoka', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin: 0 0 16px 0;
     display: flex;
     align-items: center;
@@ -125,12 +127,12 @@
   }
 
   /* Checklist Items */
-  .step {
+  .task-item {
     display: flex;
     align-items: flex-start;
     gap: 12px;
     background: #f8fafc;
-    padding: 12px 14px;
+    padding: 13px 16px;
     border-radius: 14px;
     margin-bottom: 12px;
     border: 2px solid #e2e8f0;
@@ -138,22 +140,22 @@
     transition: all 0.2s;
   }
 
-  .step:hover {
+  .task-item:hover {
     border-color: #4c97ff;
     background: #f0f9ff;
   }
 
-  .step.done {
+  .task-item.done {
     background: #ecfdf5;
     border-color: #0fbd8c;
   }
 
-  .step.done span {
+  .task-item.done span {
     text-decoration: line-through;
     color: #047857;
   }
 
-  .step input[type="checkbox"] {
+  .task-item input[type="checkbox"] {
     width: 24px;
     height: 24px;
     accent-color: #0fbd8c;
@@ -162,8 +164,8 @@
     flex-shrink: 0;
   }
 
-  .step span {
-    font-size: 1.05rem;
+  .task-item span {
+    font-size: 1.08rem;
     line-height: 1.4;
     font-weight: 700;
   }
@@ -174,10 +176,10 @@
     border: 2px dashed #cbd5e1;
     border-radius: 18px;
     padding: 18px;
-    margin-top: 16px;
+    margin-top: 18px;
     font-family: 'Nunito', sans-serif;
     font-weight: 800;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     color: white;
     overflow-x: auto;
   }
@@ -239,297 +241,46 @@
     margin-bottom: 4px;
   }
 
-  /* Playable Demo Box */
-  .demo-section {
-    margin-top: 24px;
-    background: white;
-    border-radius: 24px;
-    padding: 24px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.07);
-    border: 4px solid #c4b5fd;
-  }
-
-  .demo-section h2 {
-    font-family: 'Fredoka', sans-serif;
-    color: #7c3aed;
-    margin-top: 0;
-  }
-
+  /* Canvas */
   canvas {
     background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%);
     border-radius: 16px;
     border: 4px solid #8b5cf6;
     max-width: 100%;
     display: block;
-    margin: 12px auto;
+    margin: 14px auto;
+  }
+
+  /* Buttons & Navigation */
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+    gap: 12px;
   }
 
   .btn {
     font-family: 'Fredoka', sans-serif;
-    font-size: 1.1rem;
-    padding: 10px 24px;
+    font-size: 1.15rem;
+    padding: 12px 26px;
     border: none;
     border-radius: 999px;
     cursor: pointer;
     color: white;
     background: #0fbd8c;
     box-shadow: 0 4px 0 #098c67;
-    margin: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.15s;
   }
 
-  .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #098c67; }
-  .btn.reset { background: #ffab19; box-shadow: 0 4px 0 #d98a00; }
-
-  .banner-win {
-    display: none;
-    background: linear-gradient(135deg, #0fbd8c, #10b981);
-    color: white;
-    padding: 18px;
-    border-radius: 18px;
-    font-family: 'Fredoka', sans-serif;
-    font-size: 1.4rem;
-    text-align: center;
-    margin-bottom: 20px;
-    animation: pop 0.4s ease;
+  .btn:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #098c67;
   }
 
-  @keyframes pop {
-    0% { transform: scale(0.9); }
-    100% { transform: scale(1); }
-  }
-</style>
-</head>
-<body>
-
-<div class="container">
-  <div class="header">
-    <h1>⭐ Year 3 Scratch 3 Hands-On Exam ⭐</h1>
-    <p>Project: <strong>The Star Collector</strong> — Tick each box as you build your code!</p>
-  </div>
-
-  <div id="winBanner" class="banner-win">
-    🎉 AMAZING JOB! You finished all code blocks! Test your game and raise your hand! 🎉
-  </div>
-
-  <div class="progress-box">
-    <div class="progress-label" id="progressText">Progress: 0 / 8 Done</div>
-    <div class="progress-track">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
-    <button class="btn reset" onclick="resetChecks()">Reset Ticks</button>
-  </div>
-
-  <div class="grid">
-    <!-- PART 1: PLAYER SPRITE -->
-    <div class="card player">
-      <h2 class="card-title">🐱 Part 1: Player (Sprite1)</h2>
-
-      <label class="step">
-        <input type="checkbox" class="task" onchange="updateProgress()">
-        <span>1. Add a <strong>Player</strong> sprite (Sprite1) and a colorful <strong>Backdrop</strong>.</span>
-      </label>
-
-      <label class="step">
-        <input type="checkbox" class="task" onchange="updateProgress()">
-        <span>2. Add <code style="color:#d97706">when green flag clicked</code> and a <code style="color:#d97706">forever</code> loop.</span>
-      </label>
-
-      <label class="step">
-        <input type="checkbox" class="task" onchange="updateProgress()">
-        <span>3. Make <strong>Right Arrow</strong> move right (<code style="color:#2563eb">change x by 10</code>).</span>
-      </label>
-
-      <label class="step">
-        <input type="checkbox" class="task" onchange="updateProgress()">
-        <span>4. Make <strong>Left Arrow</strong> move left (<code style="color:#2563eb">change x by -10</code>).</span>
-      </label>
-
-      <div class="blocks-area">
-        <span class="blocks-label">Sprite1 Code Blocks:</span>
-        <div><div class="sb sb-hat event">when 🚩 clicked</div></div>
-        <div><div class="sb control">forever</div></div>
-        <div class="c-block">
-          <div><div class="sb control">if <span class="sb sensing">key <span class="dropdown-pill">right arrow ▼</span> pressed?</span> then</div></div>
-          <div class="c-block">
-            <div><div class="sb motion">change x by <span class="input-pill">10</span></div></div>
-          </div>
-          <div class="c-bottom"></div>
-
-          <div><div class="sb control">if <span class="sb sensing">key <span class="dropdown-pill">left arrow ▼</span> pressed?</span> then</div></div>
-          <div class="c-block">
-            <div><div class="sb motion">change x by <span class="input-pill">-10</span></div></div>
-          </div>
-          <div class="c-bottom"></div>
-        </div>
-        <div class="c-bottom"></div>
-      </div>
-    </div>
-
-    <!-- PART 2: STAR SPRITE -->
-    <div class="card star">
-      <h2 class="card-title">🌟 Part 2: Falling Star</h2>
-
-      <label class="step">
-        <input type="checkbox" class="task" onchange="updateProgress()">
-        <span>5. Add a <strong>Star</strong> sprite and create a variable named <code style="color:#ea580c">score</code>.</span>
-      </label>
-
-      <label class="step">
-        <input type="checkbox" class="task" onchange="updateProgress()">
-        <span>6. Set <code style="color:#ea580c">score to 0</code> and send Star to top (<code style="color:#2563eb">x: random -200 to 200, y: 170</code>).</span>
-      </label>
-
-      <label class="step">
-        <input type="checkbox" class="task" onchange="updateProgress()">
-        <span>7. Inside <code style="color:#d97706">forever</code>, make Star fall (<code style="color:#2563eb">change y by -5</code>) and reset if <code style="color:#14532d"">y &lt; -170</code>.</span>
-      </label>
-
-      <label class="step">
-        <input type="checkbox" class="task" onchange="updateProgress()">
-        <span>8. If <code style="color:#0284c7">touching Sprite1?</code>, play <strong>Boing</strong>, add <strong>1</strong> to score, and go back to top!</span>
-      </label>
-
-      <div class="blocks-area">
-        <span class="blocks-label">Star Code Blocks:</span>
-        <div><div class="sb sb-hat event">when clicked</div></div>
-        <div><div class="sb variable">set <span class="dropdown-pill">score ▼</span> to <span class="input-pill">0</span></div></div>
-        <div><div class="sb motion">go to x: <span class="sb operator">pick random <span class="input-pill">-200</span> to <span class="input-pill">200</span></span> y: <span class="input-pill">170</span></div></div>
-        <div><div class="sb control">forever</div></div>
-        <div class="c-block">
-          <div><div class="sb motion">change y by <span class="input-pill">-5</span></div></div>
-
-          <div><div class="sb control">if <span class="sb operator"><span class="sb motion" style="border-radius:14px;padding:2px 8px;">y position</span> &lt; <span class="input-pill">-170</span></span> then</div></div>
-          <div class="c-block">
-            <div><div class="sb motion">go to x: <span class="sb operator">pick random <span class="input-pill">-200</span> to <span class="input-pill">200</span></span> y: <span class="input-pill">170</span></div></div>
-          </div>
-          <div class="c-bottom"></div>
-
-          <div><div class="sb control">if <span class="sb sensing">touching <span class="dropdown-pill">Sprite1 ▼</span> ?</span> then</div></div>
-          <div class="c-block">
-            <div><div class="sb sound">start sound <span class="dropdown-pill">Boing ▼</span></div></div>
-            <div><div class="sb variable">change <span class="dropdown-pill">score ▼</span> by <span class="input-pill">1</span></div></div>
-            <div><div class="sb motion">go to x: <span class="sb operator">pick random <span class="input-pill">-200</span> to <span class="input-pill">200</span></span> y: <span class="input-pill">170</span></div></div>
-          </div>
-          <div class="c-bottom"></div>
-        </div>
-        <div class="c-bottom"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- INTERACTIVE PREVIEW GAME -->
-  <div class="demo-section">
-    <h2>🎮 Example Preview: How Your Game Should Work!</h2>
-    <p>Click <strong>Start Green Flag</strong> and use your <strong>Left ⬅️</strong> and <strong>Right ➡️</strong> arrow keys!</p>
-    <button class="btn" onclick="startGame()">🚩 Start Green Flag</button>
-    <canvas id="gameCanvas" width="480" height="320"></canvas>
-  </div>
-</div>
-
-<script>
-  // Checklist & Progress Logic
-  function updateProgress() {
-    const tasks = document.querySelectorAll('.task');
-    let checked = 0;
-    tasks.forEach(box => {
-      const label = box.closest('.step');
-      if (box.checked) {
-        checked++;
-        label.classList.add('done');
-      } else {
-        label.classList.remove('done');
-      }
-    });
-    const pct = Math.round((checked / tasks.length) * 100);
-    document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressText').innerText = `Progress: ${checked} / ${tasks.length} Done`;
-    document.getElementById('winBanner').style.display = (checked === tasks.length) ? 'block' : 'none';
-  }
-
-  function resetChecks() {
-    document.querySelectorAll('.task').forEach(box => box.checked = false);
-    updateProgress();
-  }
-
-  // Mini Playable Scratch Game Preview
-  const canvas = document.getElementById('gameCanvas');
-  const ctx = canvas.getContext('2d');
-  let running = false;
-  let score = 0;
-  let player = { x: 215, y: 265, w: 50, h: 40 };
-  let star = { x: 220, y: 20, size: 28 };
-  let keys = {};
-
-  window.addEventListener('keydown', e => {
-    if (["ArrowLeft", "ArrowRight"].includes(e.key)) e.preventDefault();
-    keys[e.key] = true;
-  });
-  window.addEventListener('keyup', e => keys[e.key] = false);
-
-  function resetStar() {
-    star.x = Math.floor(Math.random() * (canvas.width - 40)) + 20;
-    star.y = 20;
-  }
-
-  function startGame() {
-    score = 0;
-    player.x = 215;
-    resetStar();
-    if (!running) {
-      running = true;
-      loop();
-    }
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Score Box (Scratch style)
-    ctx.fillStyle = '#ff8c1a';
-    ctx.fillRect(14, 14, 110, 32);
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 16px Nunito, sans-serif';
-    ctx.fillText('score: ' + score, 26, 35);
-
-    // Draw Player (Cat Emoji)
-    ctx.font = '42px serif';
-    ctx.fillText('🐱', player.x, player.y + 35);
-
-    // Draw Star
-    ctx.font = '32px serif';
-    ctx.fillText('⭐', star.x - 16, star.y + 12);
-  }
-
-  function loop() {
-    if (!running) return;
-
-    if (keys['ArrowRight'] && player.x < canvas.width - 50) player.x += 6;
-    if (keys['ArrowLeft'] && player.x > 5) player.x -= 6;
-
-    star.y += 3.5;
-
-    // Missed bottom
-    if (star.y > canvas.height - 10) {
-      resetStar();
-    }
-
-    // Touching Sprite1
-    if (
-      star.x > player.x - 10 &&
-      star.x < player.x + 50 &&
-      star.y > player.y &&
-      star.y < player.y + 40
-    ) {
-      score++;
-      resetStar();
-    }
-
-    draw();
-    requestAnimationFrame(loop);
-  }
-
-  draw();
-</script>
-</body>
-</html>
+  .btn.next {
+    background: #4c97ff;
+    box-shadow: 0 4px 0 #2563eb;
